@@ -1,9 +1,11 @@
 package model;
-
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
+import expr.Environment;
+import expr.Expr;
+import expr.ExprParser;
 import util.XLException;
 
 public class ExprSlot extends Observable implements Slot, Observer {

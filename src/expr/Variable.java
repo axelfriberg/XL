@@ -1,4 +1,6 @@
-package model;
+package expr;
+
+import model.Slot;
 
 class Variable extends Expr implements Environment{
     private String name;

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
+import expr.Environment;
+
 public class Sheet extends Observable implements Environment {
 
 	private Map<String, Slot> map;

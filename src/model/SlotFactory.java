@@ -1,5 +1,7 @@
 package model;
 
+import expr.Environment;
+
 public class SlotFactory {
 	private Environment env;
 
