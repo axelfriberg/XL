@@ -33,6 +33,20 @@ public class SlotLabel extends ColoredLabel implements Observer, MouseListener {
 
 	}
 
+	public boolean equals(Object obj) {
+		String a = obj.toString();
+		String b = toString();
+		if (a == null) {
+			return false;
+		} else if (b == null) {
+			return false;
+		} else if (a.equals(b)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		System.out.println("klickade i ruta");
