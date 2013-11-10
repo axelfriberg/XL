@@ -8,15 +8,18 @@ import model.Sheet;
 
 @SuppressWarnings("serial")
 public class CurrentLabel extends ColoredLabel implements Observer {
-	private Sheet sheet;
-	public CurrentLabel(Sheet sheet) {
+	private CurrentModel currentModel;
+
+	public CurrentLabel(CurrentModel currentModel) {
 		super("A1", Color.WHITE);
-		this.sheet = sheet;
-		sheet.addObserver(this);
+		this.currentModel = currentModel;
+		currentModel.addObserver(this);
+
 	}
 
 	public void update(Observable obs, Object obj) {
-		setText(sheet.getCurrentLocation());
+		String current = currentModel.getCurrent().toString();
+		setText(current);
 	}
 
 }

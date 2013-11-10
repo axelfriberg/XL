@@ -6,9 +6,9 @@ import model.Sheet;
 
 @SuppressWarnings("serial")
 public class SheetPanel extends BorderPanel {
-    public SheetPanel(int rows, int columns, Sheet sheet) {
+    public SheetPanel(int rows, int columns, Sheet sheet, CurrentModel currentModel) {
     	super(sheet);
         add(WEST, new RowLabels(rows));
-        add(CENTER, new SlotLabels(rows, columns, sheet));
+        add(CENTER, new SlotLabels(rows, columns, sheet, currentModel));
     }
 }

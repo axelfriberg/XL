@@ -18,10 +18,12 @@ public class SlotLabels extends GridPanel implements MouseListener, Observer {
 	private List<SlotLabel> labelList;
 	private SlotLabel currentLabel;
 	private Sheet sheet;
+	private CurrentModel currentModel;
 
-	public SlotLabels(int rows, int cols, Sheet sheet) {
+	public SlotLabels(int rows, int cols, Sheet sheet, CurrentModel currentModel) {
 		super(rows + 1, cols);
 		this.sheet = sheet;
+		this.currentModel = currentModel;
 		sheet.addObserver(this);
 		labelList = new ArrayList<SlotLabel>(rows * cols);
 		for (char ch = 'A'; ch < 'A' + cols; ch++) {
@@ -30,30 +32,20 @@ public class SlotLabels extends GridPanel implements MouseListener, Observer {
 		}
 		for (int row = 1; row <= rows; row++) {
 			for (char ch = 'A'; ch < 'A' + cols; ch++) {
-				SlotLabel label = new SlotLabel(row, ch);
-				label.addMouseListener(this);
+				SlotLabel label = new SlotLabel(row, ch, currentModel);
 				add(label);
 				labelList.add(label);
 			}
 		}
-		SlotLabel firstLabel = labelList.get(0);
-		firstLabel.setBackground(Color.YELLOW);
-		currentLabel = firstLabel;
+		currentModel.setCurrentSlot(labelList.get(0));
+		currentModel.addObserver(labelList.get(0));
+		labelList.get(0).setBackground(Color.YELLOW);
+
+
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		boolean found = false;
-		for (SlotLabel label : labelList) {
-			if (arg0.getSource().equals(label) && !found) {
-				currentLabel.setBackground(Color.WHITE);
-				currentLabel = label;
-				currentLabel.setBackground(Color.YELLOW);
-				found = true;
-				sheet.updateCurrent(label.toString());
-			}
-
-		}
 
 	}
 
@@ -81,7 +73,10 @@ public class SlotLabels extends GridPanel implements MouseListener, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-
+		ArrayList<String> slotNames = sheet.getSlotList();
+		for (int i = 0; i < slotNames.size(); i++) {
+			labelList.get(i).setText(slotNames.get(i));
+		}
 	}
 
 }

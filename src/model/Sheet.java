@@ -1,10 +1,13 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Observable;
-
-import expr.Environment;
+import java.util.Set;
 
 public class Sheet extends Observable implements Environment {
 
@@ -21,7 +24,6 @@ public class Sheet extends Observable implements Environment {
 			}
 		}
 		factory = new SlotFactory(this);
-		currentSlot = "A1";
 
 	}
 
@@ -30,6 +32,7 @@ public class Sheet extends Observable implements Environment {
 	}
 
 	public void addSlot(String argument) {
+
 		map.remove(currentSlot);
 		map.put(currentSlot, factory.createSlot(argument));
 		setChanged();
@@ -37,18 +40,18 @@ public class Sheet extends Observable implements Environment {
 
 	}
 
-	public void updateCurrent(String key) {
-		currentSlot = key;
-		setChanged();
-		notifyObservers();
+	public ArrayList<String> getSlotList() {
+		ArrayList<Slot> slotList = (ArrayList<Slot>) map.values();
+		ArrayList<String> slots = new ArrayList<String>();
+		for (Slot s : slotList) {
+			slots.add(s.toString());
+		}
+		return slots;
+
 	}
 
-	public String getCurrentLocation() {
-		return currentSlot;
-	}
-
+	@Override
 	public Slot getSlot(String key) {
 		return map.get(key);
 	}
-
 }

@@ -1,5 +1,6 @@
 package expr;
 
+import model.Environment;
 import util.NumberAdjustment;
 
 class Num extends Expr {

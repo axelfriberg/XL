@@ -6,9 +6,11 @@ import model.Sheet;
 
 @SuppressWarnings("serial")
 public class StatusPanel extends BorderPanel {
-    protected StatusPanel(StatusLabel statusLabel, Sheet sheet) {
-    	super(sheet);
-        add(WEST, new CurrentLabel(sheet));
-        add(CENTER, statusLabel);
-    }
+	protected StatusPanel(StatusLabel statusLabel, Sheet sheet,
+			CurrentModel currentModel) {
+		super(sheet);
+
+		add(WEST, new CurrentLabel(currentModel));
+		add(CENTER, statusLabel);
+	}
 }

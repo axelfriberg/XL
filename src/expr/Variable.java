@@ -1,5 +1,6 @@
 package expr;
 
+import model.Environment;
 import model.Slot;
 
 class Variable extends Expr implements Environment{

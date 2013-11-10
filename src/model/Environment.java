@@ -1,6 +1,5 @@
-package expr;
+package model;
 
-import model.Slot;
 
 public interface Environment {
     public double value(String name);
