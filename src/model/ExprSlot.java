@@ -37,4 +37,9 @@ public class ExprSlot extends Observable implements Slot, Observer {
 	public String toString(){
 		return expr.toString();
 	}
+
+
+	public String output() {
+		return String.valueOf(value());
+	}
 }

@@ -17,7 +17,7 @@ import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class SlotLabels extends GridPanel implements MouseListener, Observer {
-	private HashMap<String, SlotLabel> labelList;
+	private HashMap<String, SlotLabel> labelMap;
 	private SlotLabel currentLabel;
 	private Sheet sheet;
 	private CurrentModel currentModel;
@@ -27,7 +27,7 @@ public class SlotLabels extends GridPanel implements MouseListener, Observer {
 		this.sheet = sheet;
 		this.currentModel = currentModel;
 		sheet.addObserver(this);
-		labelList = new HashMap<String, SlotLabel>();
+		labelMap = new HashMap<String, SlotLabel>();
 		for (char ch = 'A'; ch < 'A' + cols; ch++) {
 			add(new ColoredLabel(Character.toString(ch), Color.LIGHT_GRAY,
 					SwingConstants.CENTER));
@@ -37,12 +37,12 @@ public class SlotLabels extends GridPanel implements MouseListener, Observer {
 				SlotLabel label = new SlotLabel(row, ch, currentModel);
 				add(label);
 				String temp = Character.toString(ch) + Integer.toString(row);
-				labelList.put(temp, label);
+				labelMap.put(temp, label);
 			}
 		}
-		currentModel.setCurrentSlot(labelList.get("A1"));
-		currentModel.addObserver(labelList.get("A1"));
-		labelList.get("A1").setBackground(Color.YELLOW);
+		currentModel.setCurrentSlot(labelMap.get("A1"));
+		currentModel.addObserver(labelMap.get("A1"));
+		labelMap.get("A1").setBackground(Color.YELLOW);
 
 	}
 
@@ -75,9 +75,10 @@ public class SlotLabels extends GridPanel implements MouseListener, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) { 
-		HashMap<String, String> slotNames = sheet.getSlotList();
+		HashMap<String, String> slotNames = sheet.getSlotMap();
+		HashMap<String, SlotLabel> newMap = new HashMap<String, SlotLabel>();
 		for (Map.Entry<String, String> entry : slotNames.entrySet()) {
-			labelList.get(entry.getKey()).setText(entry.getValue());
+			
 
 		}
 	}

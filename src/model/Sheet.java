@@ -13,12 +13,6 @@ public class Sheet extends Observable implements Environment {
 
 	public Sheet(int rows, int columns) {
 		map = new HashMap<String, Slot>();
-		// for (int row = 1; row <= rows; row++) { bort
-		// for (char ch = 'A'; ch < 'A' + columns; ch++) {
-		// String key = Character.toString(ch) + Integer.toString(row);
-		// map.put(key, new BlankSlot());
-		// }
-		// }
 		factory = new SlotFactory(this);
 
 	}
@@ -36,15 +30,12 @@ public class Sheet extends Observable implements Environment {
 
 	}
 
-	// iterera HashMap fšr att sedan skicka en ny HashMap med String key samt
-	// String value.Denna tas sedan emot och hanteras av SlotLabels,
-	// dŠr vi fyller rutorna som finns i hashmapen och tšmmer de som inte finns
-	public HashMap<String, String> getSlotList() {
-		HashMap<String, String> list = new HashMap<String, String>();
+	public HashMap<String, String> getSlotMap() {
+		HashMap<String, String> stringMap = new HashMap<String, String>();
 		for (Map.Entry<String, Slot> entry : map.entrySet()) {
-			list.put(entry.getKey(), String.valueOf(entry.getValue().value()));
+			stringMap.put(entry.getKey(), entry.getValue().output());
 		}
-		return list;
+		return stringMap;
 
 	}
 

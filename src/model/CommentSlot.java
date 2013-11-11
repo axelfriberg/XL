@@ -16,4 +16,8 @@ public class CommentSlot implements Slot {
 		return comment;
 	}
 
+	public String output() {
+		return toString();
+	}
+
 }

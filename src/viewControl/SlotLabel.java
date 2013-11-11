@@ -49,7 +49,6 @@ public class SlotLabel extends ColoredLabel implements Observer, MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		System.out.println("klickade i ruta");
 		setBackground(Color.YELLOW);
 		currentModel.setCurrentSlot(this);
 		currentModel.addObserver(this);

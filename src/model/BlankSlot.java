@@ -15,4 +15,8 @@ public class BlankSlot implements Slot{
 	public String toString(){
 		return "";
 	}
+	
+	public String output(){
+		return toString();
+	}
 }

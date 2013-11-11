@@ -6,5 +6,7 @@ public interface Slot {
 	
 	public String toString();
 	
+	public String output(); // Returnerar värdet av rutan i strängformat.
+	
 
 }
