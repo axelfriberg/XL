@@ -27,7 +27,8 @@ public class Editor extends JTextField implements KeyListener, Observer {
 		if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
 			String s = getText();
 			setText("");
-			sheet.addSlot(s, currentModel.getCurrent().toString());
+			sheet.addSlot(currentModel.getCurrent().toString(), s);
+			update(null, null);
 		}
 	}
 
@@ -44,11 +45,13 @@ public class Editor extends JTextField implements KeyListener, Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		String address = currentModel.getCurrent().toString();
 		String text = currentModel.getCurrent().getText();
 		if (text.equals("                    ")) {
 			setText("");
 		} else {
-			setText(text);
+			setText(sheet.getSlot(address).toString());
+			
 		}
 	}
 }

@@ -1,10 +1,8 @@
 package model;
 
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
-
 
 public class Sheet extends Observable implements Environment {
 
@@ -18,8 +16,11 @@ public class Sheet extends Observable implements Environment {
 	}
 
 	public double value(String key) {
-		return map.get(key).value();
-		
+		if(map.get(key) != null){
+			return map.get(key).value();
+		}
+		return 0;
+
 	}
 
 	public void addSlot(String key, String argument) {
@@ -42,6 +43,10 @@ public class Sheet extends Observable implements Environment {
 
 	@Override
 	public Slot getSlot(String key) {
-		return map.get(key);
+		if(map.get(key) != null){
+			return map.get(key);
+		}
+		
+		return new BlankSlot();
 	}
 }
