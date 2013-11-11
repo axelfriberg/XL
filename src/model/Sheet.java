@@ -19,6 +19,7 @@ public class Sheet extends Observable implements Environment {
 
 	public double value(String key) {
 		return map.get(key).value();
+		
 	}
 
 	public void addSlot(String key, String argument) {

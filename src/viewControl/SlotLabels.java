@@ -78,9 +78,17 @@ public class SlotLabels extends GridPanel implements MouseListener, Observer {
 		HashMap<String, String> slotNames = sheet.getSlotMap();
 		HashMap<String, SlotLabel> newMap = new HashMap<String, SlotLabel>();
 		for (Map.Entry<String, String> entry : slotNames.entrySet()) {
-			
+			SlotLabel label = new SlotLabel(Integer.parseInt(entry.getKey().substring(1)), entry.getKey().charAt(0), currentModel);
+			label.setText(entry.getValue());
+			newMap.put(entry.getKey(), label);
 
 		}
+		
+		labelMap = newMap;	
+	}
+	
+	private void updateGUI(){
+		
 	}
 
 }
