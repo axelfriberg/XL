@@ -49,4 +49,17 @@ public class Sheet extends Observable implements Environment {
 		
 		return new BlankSlot();
 	}
+
+
+	public void resetMap(){
+		map = new HashMap<String, Slot>();
+		setChanged();
+		notifyObservers();
+	}
+	public void removeSlot(String key){
+		map.remove(key);
+		setChanged();
+		notifyObservers();
+	}
 }
+

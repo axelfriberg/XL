@@ -2,15 +2,24 @@ package viewControl;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JMenuItem;
 
-class ClearMenuItem extends JMenuItem implements ActionListener {
-    public ClearMenuItem() {
-        super("Clear");
-        addActionListener(this);
-    }
+import model.Sheet;
 
-    public void actionPerformed(ActionEvent e) {
-        // TODO
-    }
+class ClearMenuItem extends JMenuItem implements ActionListener {
+	private Sheet sheet;
+	private CurrentModel currentModel;
+
+	public ClearMenuItem(Sheet sheet, CurrentModel currentModel) {
+		super("Clear");
+		this.sheet = sheet;
+		this.currentModel = currentModel;
+		addActionListener(this);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		String key = currentModel.getCurrent().toString();
+		sheet.removeSlot(key);
+	}
 }
