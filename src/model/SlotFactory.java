@@ -1,6 +1,5 @@
 package model;
 
-
 public class SlotFactory {
 	private Environment env;
 
@@ -8,20 +7,16 @@ public class SlotFactory {
 		this.env = env;
 	}
 
-	public Slot createSlot(String s){
+	public Slot createSlot(String s) {
 		
-		if(s.equals("")){
-			return new BlankSlot();
-		}
-		
-		else if(s.charAt(0)=='#'){
+		if (s.charAt(0) == '#') {
 			return new CommentSlot(s);
 		}
-			
-		else{
-				return new ExprSlot(s, env);
+
+		else {
+			return new ExprSlot(s, env);
 
 		}
-		
+
 	}
 }

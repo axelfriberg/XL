@@ -7,7 +7,9 @@ import model.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -15,7 +17,7 @@ import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class SlotLabels extends GridPanel implements MouseListener, Observer {
-	private List<SlotLabel> labelList;
+	private HashMap<String, SlotLabel> labelList;
 	private SlotLabel currentLabel;
 	private Sheet sheet;
 	private CurrentModel currentModel;
@@ -25,7 +27,7 @@ public class SlotLabels extends GridPanel implements MouseListener, Observer {
 		this.sheet = sheet;
 		this.currentModel = currentModel;
 		sheet.addObserver(this);
-		labelList = new ArrayList<SlotLabel>(rows * cols);
+		labelList = new HashMap<String, SlotLabel>();
 		for (char ch = 'A'; ch < 'A' + cols; ch++) {
 			add(new ColoredLabel(Character.toString(ch), Color.LIGHT_GRAY,
 					SwingConstants.CENTER));
@@ -34,13 +36,13 @@ public class SlotLabels extends GridPanel implements MouseListener, Observer {
 			for (char ch = 'A'; ch < 'A' + cols; ch++) {
 				SlotLabel label = new SlotLabel(row, ch, currentModel);
 				add(label);
-				labelList.add(label);
+				String temp = Character.toString(ch) + Integer.toString(row);
+				labelList.put(temp, label);
 			}
 		}
-		currentModel.setCurrentSlot(labelList.get(0));
-		currentModel.addObserver(labelList.get(0));
-		labelList.get(0).setBackground(Color.YELLOW);
-
+		currentModel.setCurrentSlot(labelList.get("A1"));
+		currentModel.addObserver(labelList.get("A1"));
+		labelList.get("A1").setBackground(Color.YELLOW);
 
 	}
 
@@ -72,10 +74,11 @@ public class SlotLabels extends GridPanel implements MouseListener, Observer {
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
-		ArrayList<String> slotNames = sheet.getSlotList();
-		for (int i = 0; i < slotNames.size(); i++) {
-			labelList.get(i).setText(slotNames.get(i));
+	public void update(Observable o, Object arg) { 
+		HashMap<String, String> slotNames = sheet.getSlotList();
+		for (Map.Entry<String, String> entry : slotNames.entrySet()) {
+			labelList.get(entry.getKey()).setText(entry.getValue());
+
 		}
 	}
 

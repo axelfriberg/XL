@@ -8,14 +8,27 @@ import java.util.Observer;
 
 import javax.swing.JTextField;
 
-public class Editor extends JTextField implements KeyListener, Observer { //Key och Obs tillagda 
-	public Editor() { 
+import model.Sheet;
+
+public class Editor extends JTextField implements KeyListener, Observer {
+	private Sheet sheet;
+	private CurrentModel currentModel;
+
+	public Editor(Sheet sheet, CurrentModel currentModel) {
+		this.sheet = sheet;
+		this.currentModel = currentModel;
 		setBackground(Color.WHITE);
+		addKeyListener(this);
+		currentModel.addObserver(this);
 	}
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		
+		if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
+			String s = getText();
+			setText("");
+			sheet.addSlot(s, currentModel.getCurrent().toString());
+		}
 	}
 
 	@Override
@@ -26,14 +39,16 @@ public class Editor extends JTextField implements KeyListener, Observer { //Key 
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		if (arg0.VK_ENTER == arg0.getKeyCode()) { //h�r eller i keyPressed
-			String s = getText();
-			//skicka s till model
-		}
+
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		setText("");//T�mmer efter att modellen tagit emot str�ngen och gjort det den ska
+		String text = currentModel.getCurrent().getText();
+		if (text.equals("                    ")) {
+			setText("");
+		} else {
+			setText(text);
+		}
 	}
 }
