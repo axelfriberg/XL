@@ -83,6 +83,8 @@ public class SlotLabels extends GridPanel implements MouseListener, Observer {
 		for (Map.Entry<String, String> entry : slotNames.entrySet()) {
 			labelMap.get(entry.getKey()).setText(entry.getValue());
 		}
+		
+		currentModel.notifyObservers();
 	}
 
 }

@@ -1,5 +1,6 @@
 package model;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -60,6 +61,18 @@ public class Sheet extends Observable implements Environment {
 		map.remove(key);
 		setChanged();
 		notifyObservers();
+	}
+	
+	public void save(String fileName){
+		try {
+			XLPrintStream ps = new XLPrintStream(fileName);
+			ps.save(map.entrySet());
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
 

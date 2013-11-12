@@ -20,8 +20,8 @@ public class XL extends JFrame implements Printable {
 	private XLCounter counter;
 	private StatusLabel statusLabel = new StatusLabel();
 	private XLList xlList;
-	@SuppressWarnings("unused")
-	private Sheet sheet;
+//	@SuppressWarnings("unused")
+//	private Sheet sheet;
 
 	public XL(XL oldXL, Sheet OldSheet) {
 		this(oldXL.xlList, oldXL.counter, OldSheet);

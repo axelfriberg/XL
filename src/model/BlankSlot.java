@@ -17,6 +17,7 @@ public class BlankSlot implements Slot{
 	}
 	
 	public String output(){
-		return toString();
+		throw new XLException("Obefintligt värde!");
 	}
+	
 }
