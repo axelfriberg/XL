@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
+import util.XLException;
+
 public class Sheet extends Observable implements Environment {
 
 	private Map<String, Slot> map;
@@ -17,11 +19,16 @@ public class Sheet extends Observable implements Environment {
 	}
 
 	public double value(String key) {
-		if(map.get(key) != null){
+		try {
 			return map.get(key).value();
+		} catch (Exception e) {
+			throw new XLException("Felaktig kalkylering av värde");
 		}
-		return 0;
 
+	}
+
+	public String getException() {
+		return "hej";
 	}
 
 	public void addSlot(String key, String argument) {
@@ -44,26 +51,26 @@ public class Sheet extends Observable implements Environment {
 
 	@Override
 	public Slot getSlot(String key) {
-		if(map.get(key) != null){
+		if (map.get(key) != null) {
 			return map.get(key);
 		}
-		
+
 		return new BlankSlot();
 	}
 
-
-	public void resetMap(){
+	public void resetMap() {
 		map = new HashMap<String, Slot>();
 		setChanged();
 		notifyObservers();
 	}
-	public void removeSlot(String key){
+
+	public void removeSlot(String key) {
 		map.remove(key);
 		setChanged();
 		notifyObservers();
 	}
-	
-	public void save(String fileName){
+
+	public void save(String fileName) {
 		try {
 			XLPrintStream ps = new XLPrintStream(fileName);
 			ps.save(map.entrySet());
@@ -72,7 +79,6 @@ public class Sheet extends Observable implements Environment {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 }
-
