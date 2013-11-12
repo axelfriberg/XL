@@ -14,12 +14,14 @@ public class XLBufferedReader extends BufferedReader {
     }
 
     // TODO Change Object to something appropriate
-    public void load(Map<String, Slot> map) {
+    public void load(Map<String, Slot> map, SlotFactory factory) {
         try {
             while (ready()) {
                 String string = readLine();
                 int i = string.indexOf('=');
-                // TODO
+                String key = string.substring(0, i);
+                String value = string.substring(i+1);
+                map.put(key, factory.createSlot(value));
             }
         } catch (Exception e) {
             throw new XLException(e.getMessage());

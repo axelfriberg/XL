@@ -91,4 +91,17 @@ public class Sheet extends Observable implements Environment {
 		}
 
 	}
+
+	public void load(String fileName){
+		try {
+			XLBufferedReader br = new XLBufferedReader(fileName);
+			br.load(map, factory);
+			setChanged();
+			notifyObservers();
+			} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 }

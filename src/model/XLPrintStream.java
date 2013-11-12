@@ -5,13 +5,11 @@ import java.io.PrintStream;
 import java.util.Map.Entry;
 import java.util.Set;
 
-//TODO move to another package
 public class XLPrintStream extends PrintStream {
     public XLPrintStream(String fileName) throws FileNotFoundException {
-        super(fileName);
+        super(fileName+".xl");
     }
 
-    // TODO Change Object to something appropriate
     public void save(Set<Entry<String, Slot>> set) {
         for (Entry<String, Slot> entry : set) {
             print(entry.getKey());
