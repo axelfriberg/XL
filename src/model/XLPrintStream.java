@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class XLPrintStream extends PrintStream {
     public XLPrintStream(String fileName) throws FileNotFoundException {
-        super(fileName);
+        super(fileName+".xl");
     }
 
     public void save(Set<Entry<String, Slot>> set) {
