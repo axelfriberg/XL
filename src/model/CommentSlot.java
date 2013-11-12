@@ -13,11 +13,11 @@ public class CommentSlot implements Slot {
 	}
 
 	public String toString() {
-		return comment;
+		return "#"+comment;
 	}
 
 	public String output() {
-		return toString();
+		return comment;
 	}
 
 }
