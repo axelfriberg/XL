@@ -9,7 +9,7 @@ public class BlankSlot implements Slot{
 	}
 
 	public double value() {
-		throw new XLException("Obefintligt värde!");
+		throw new XLException("Empty slot referal.");
 	}
 	
 	public String toString(){
@@ -17,7 +17,7 @@ public class BlankSlot implements Slot{
 	}
 	
 	public String output(){
-		throw new XLException("Obefintligt värde!");
+		throw new XLException("Empty slot referal.");
 	}
 	
 }

@@ -11,6 +11,7 @@ public class Sheet extends Observable implements Environment {
 
 	private Map<String, Slot> map;
 	private static SlotFactory factory;
+	private String errorMsg = "";
 
 	public Sheet(int rows, int columns) {
 		map = new HashMap<String, Slot>();
@@ -20,23 +21,31 @@ public class Sheet extends Observable implements Environment {
 
 	public double value(String key) {
 		try {
-			return map.get(key).value();
+			return getSlot(key).value();
 		} catch (Exception e) {
-			throw new XLException("Felaktig kalkylering av värde");
+			errorMsg = e.getMessage();
+			throw new XLException(e.getMessage());
 		}
-
 	}
 
 	public String getException() {
-		return "hej";
+		String temp = errorMsg;
+		errorMsg = "";
+		return temp;
 	}
 
 	public void addSlot(String key, String argument) {
-		Slot current = factory.createSlot(argument);
-		map.remove(key);
-		map.put(key, current);
-		setChanged();
-		notifyObservers();
+		try {
+			Slot current = factory.createSlot(argument);
+			map.remove(key);
+			map.put(key, current);
+			setChanged();
+			notifyObservers();
+		} catch (Exception e) {
+			errorMsg = e.getMessage();
+			setChanged();
+			notifyObservers();
+		}
 
 	}
 
@@ -56,6 +65,7 @@ public class Sheet extends Observable implements Environment {
 		}
 
 		return new BlankSlot();
+
 	}
 
 	public void resetMap() {

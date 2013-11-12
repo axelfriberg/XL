@@ -18,7 +18,6 @@ import model.Sheet;
 public class XL extends JFrame implements Printable {
 	private static final int ROWS = 10, COLUMNS = 8;
 	private XLCounter counter;
-	private StatusLabel statusLabel = new StatusLabel();
 	private XLList xlList;
 //	@SuppressWarnings("unused")
 //	private Sheet sheet;
@@ -31,6 +30,7 @@ public class XL extends JFrame implements Printable {
 		super("Untitled-" + counter);
 		this.xlList = xlList;
 		this.counter = counter;
+		StatusLabel statusLabel = new StatusLabel(sheet);
 		CurrentModel currentModel = new CurrentModel();
 		xlList.add(this);
 		counter.increment();
