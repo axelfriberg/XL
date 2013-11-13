@@ -31,7 +31,8 @@ public class Editor extends JTextField implements KeyListener, Observer {
 				currentModel.setErrorMessage("");
 			} catch (Exception e) {
 				currentModel.setErrorMessage(e.getMessage());
-				setText(currentModel.getCurrent().toString());
+				setText(sheet.getSlot(currentModel.getCurrent().toString())
+						.toString());
 			}
 
 		}

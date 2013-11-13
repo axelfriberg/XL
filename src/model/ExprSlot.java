@@ -13,7 +13,6 @@ public class ExprSlot implements Slot {
 	Expr expr;
 	String argument;
 	ExprParser parser;
-	BombSlot bomb;
 
 	public ExprSlot(String argument, Environment env) {
 		this.env = env;
@@ -22,13 +21,11 @@ public class ExprSlot implements Slot {
 		try {
 			expr = parser.build(argument);
 		} catch (IOException e) {
-			System.out.println("ExprSlot()");
 			throw new XLException(e.getMessage());
 		}
 		try {
 			expr.value(env);
 		} catch (XLException e) {
-			System.out.println("ExprSlot()");
 			throw e;
 		}
 
@@ -44,10 +41,6 @@ public class ExprSlot implements Slot {
 	}
 
 	public String output() {
-		return String.valueOf(expr.value(env));
-	}
-
-	public void bombType(BombSlot bomb) {
-		this.bomb = bomb;
+		return String.valueOf(value());
 	}
 }

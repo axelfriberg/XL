@@ -1,6 +1,5 @@
 package model;
 
-
 public class SlotFactory {
 	private Environment env;
 
@@ -15,12 +14,14 @@ public class SlotFactory {
 		}
 
 		else {
+			Slot exprSlot;
 			try {
-				ExprSlot exprSlot = new ExprSlot(s, env);
-				return exprSlot;
+				exprSlot = new ExprSlot(s, env);
 			} catch (XLException e) {
+				exprSlot = new BlankSlot();
 				throw e;
 			}
+			return exprSlot;
 		}
 
 	}

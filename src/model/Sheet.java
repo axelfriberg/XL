@@ -22,21 +22,23 @@ public class Sheet extends Observable implements Environment {
 		try {
 			return getSlot(key).value();
 		} catch (XLException e) {
-			System.out.println("Sheet.value()");
 			throw e;
 		}
 	}
 
 	public void addSlot(String key, String argument) {
-		Slot current;
-		boolean go = true;
+		Slot temp = getSlot(key);
+		map.put(key, new BombSlot());
 		try {
-			current = factory.createSlot(argument);
-		} catch (Exception e) {
-			System.out.println("RÄTT STÄLLE!");
-			throw new XLException(e.getMessage());
+			map.put(key, factory.createSlot(argument));
+		} catch (XLException e) {
+			if (!(temp.getClass().equals(BlankSlot.class))) {
+				map.put(key, temp);
+			} else {
+				map.remove(key);
+			}
+			throw e;
 		}
-		map.put(key, current);
 		setChanged();
 		notifyObservers();
 
@@ -68,7 +70,7 @@ public class Sheet extends Observable implements Environment {
 	}
 
 	public void removeSlot(String key) {
-		Slot temp = map.get(key);
+		Slot temp = getSlot(key);
 		map.remove(key);
 		try {
 			for (Map.Entry<String, Slot> entry : map.entrySet()) {
@@ -97,10 +99,10 @@ public class Sheet extends Observable implements Environment {
 		try {
 			resetMap();
 			XLBufferedReader br = new XLBufferedReader(fileName);
-			br.load(map, factory);
+			br.load(this);
 			setChanged();
 			notifyObservers();
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			throw new XLException(e.getMessage());
 		}
 
