@@ -30,8 +30,8 @@ public class XL extends JFrame implements Printable {
 		super("Untitled-" + counter);
 		this.xlList = xlList;
 		this.counter = counter;
-		StatusLabel statusLabel = new StatusLabel(sheet);
 		CurrentModel currentModel = new CurrentModel();
+		StatusLabel statusLabel = new StatusLabel(currentModel);
 		xlList.add(this);
 		counter.increment();
 		JPanel statusPanel = new StatusPanel(statusLabel, sheet, currentModel);

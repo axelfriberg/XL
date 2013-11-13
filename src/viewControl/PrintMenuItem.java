@@ -11,7 +11,7 @@ import java.awt.print.PrinterJob;
 
 import javax.swing.JMenuItem;
 
-import util.XLException;
+import model.XLException;
 
 class PrintMenuItem extends JMenuItem implements ActionListener {
     private StatusLabel statusLabel;

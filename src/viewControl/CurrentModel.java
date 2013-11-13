@@ -4,6 +4,7 @@ import java.util.Observable;
 
 public class CurrentModel extends Observable {
 	private SlotLabel currentSlot;
+	private String errorMsg = "";
 
 	public CurrentModel() {
 
@@ -23,5 +24,17 @@ public class CurrentModel extends Observable {
 			setChanged();
 			notifyObservers();
 		}
+	}
+	
+	public void setErrorMessage(String s){
+		errorMsg= s;
+		setChanged();
+		notifyObservers();
+	}
+	
+	public String getExceptionMessage(){
+		String temp = errorMsg;
+		errorMsg = "";	
+		return temp;
 	}
 }

@@ -26,7 +26,14 @@ public class Editor extends JTextField implements KeyListener, Observer {
 	public void keyPressed(KeyEvent arg0) {
 		if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
 			String s = getText();
-			sheet.addSlot(currentModel.getCurrent().toString(), s);
+			try {
+				sheet.addSlot(currentModel.getCurrent().toString(), s);
+				currentModel.setErrorMessage("");
+			} catch (Exception e) {
+				currentModel.setErrorMessage(e.getMessage());
+				setText(currentModel.getCurrent().toString());
+			}
+
 		}
 	}
 

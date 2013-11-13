@@ -5,7 +5,8 @@ import java.io.Reader;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
 import java.util.regex.Pattern;
-import util.XLException;
+
+import model.XLException;
 
 /**
  * An <code>ExprParser</code> object is a parser provides a factory method for
@@ -60,7 +61,7 @@ public class ExprParser {
         if (token == StreamTokenizer.TT_EOF)
             return e;
         else
-            throw new XLException("trailing garbage");
+            throw new XLException("Trailing garbage");
     }
 
     /**
@@ -105,7 +106,7 @@ public class ExprParser {
             token = tokenizer.nextToken();
             e = expr();
             if (token != ')')
-                throw new XLException("expecting \")\", found: " + token);
+                throw new XLException("Expecting \")\", found: " + token);
             token = tokenizer.nextToken();
             return e;
         case StreamTokenizer.TT_NUMBER:
@@ -115,13 +116,13 @@ public class ExprParser {
         case StreamTokenizer.TT_WORD:
             String address = tokenizer.sval.toUpperCase();
             if (!Pattern.matches("[A-Z][0-9]+", address))
-                throw new XLException("illegal address: " + address);
+                throw new XLException("Illegal address: " + address);
             token = tokenizer.nextToken();
             return new Variable(address);
         case StreamTokenizer.TT_EOF:
-            throw new XLException("unexpected end of text");
+            throw new XLException("Unexpected end of text");
         default:
-            throw new XLException("unexpected " + (char) token);
+            throw new XLException("Unexpected " + (char) token);
         }
     }
 

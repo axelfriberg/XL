@@ -6,49 +6,37 @@ import java.util.Observer;
 
 import expr.Expr;
 import expr.ExprParser;
-import util.XLException;
 
-public class ExprSlot extends Observable implements Slot, Observer {
+public class ExprSlot implements Slot {
 
 	Environment env;
 	Expr expr;
 	String argument;
 	ExprParser parser;
-	Bomb bomb;
+	BombSlot bomb;
 
 	public ExprSlot(String argument, Environment env) {
 		this.env = env;
 		this.argument = argument;
-		bomb = new DisarmedBomb();
 		parser = new ExprParser();
 		try {
 			expr = parser.build(argument);
 		} catch (IOException e) {
-			throw new XLException("Failed to build expression.");
+			System.out.println("ExprSlot()");
+			throw new XLException(e.getMessage());
 		}
 		try {
 			expr.value(env);
 		} catch (XLException e) {
-			throw new XLException("Empty slot referal.");
+			System.out.println("ExprSlot()");
+			throw e;
 		}
-
-	}
-
-	public void update(Observable arg0, Object arg1) {
 
 	}
 
 	public double value() {
-		bomb.detonate();
-		bomb = new ArmedBomb();
-		try {
-			double val = expr.value(env);
-			bomb = new DisarmedBomb();
-			return val;
-		} catch (XLException e) {
-			System.out.println(e.getMessage());
-			throw new XLException(e.getMessage());
-		}
+		return expr.value(env);
+
 	}
 
 	public String toString() {
@@ -56,10 +44,10 @@ public class ExprSlot extends Observable implements Slot, Observer {
 	}
 
 	public String output() {
-		return String.valueOf(value());
+		return String.valueOf(expr.value(env));
 	}
 
-	public void bombType(Bomb bomb) {
+	public void bombType(BombSlot bomb) {
 		this.bomb = bomb;
 	}
 }

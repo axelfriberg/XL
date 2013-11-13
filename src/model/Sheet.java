@@ -1,17 +1,16 @@
 package model;
 
 import java.io.FileNotFoundException;
+import java.security.KeyStore.Entry;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
-
-import util.XLException;
+import java.util.Set;
 
 public class Sheet extends Observable implements Environment {
 
 	private Map<String, Slot> map;
 	private static SlotFactory factory;
-	private String errorMsg = "";
 
 	public Sheet(int rows, int columns) {
 		map = new HashMap<String, Slot>();
@@ -22,30 +21,24 @@ public class Sheet extends Observable implements Environment {
 	public double value(String key) {
 		try {
 			return getSlot(key).value();
-		} catch (Exception e) {
-			errorMsg = e.getMessage();
-			throw new XLException(e.getMessage());
+		} catch (XLException e) {
+			System.out.println("Sheet.value()");
+			throw e;
 		}
-	}
-
-	public String getException() {
-		String temp = errorMsg;
-		errorMsg = "";
-		return temp;
 	}
 
 	public void addSlot(String key, String argument) {
+		Slot current;
+		boolean go = true;
 		try {
-			Slot current = factory.createSlot(argument);
-			map.remove(key);
-			map.put(key, current);
-			setChanged();
-			notifyObservers();
+			current = factory.createSlot(argument);
 		} catch (Exception e) {
-			errorMsg = e.getMessage();
-			setChanged();
-			notifyObservers();
+			System.out.println("RÄTT STÄLLE!");
+			throw new XLException(e.getMessage());
 		}
+		map.put(key, current);
+		setChanged();
+		notifyObservers();
 
 	}
 
@@ -75,7 +68,16 @@ public class Sheet extends Observable implements Environment {
 	}
 
 	public void removeSlot(String key) {
+		Slot temp = map.get(key);
 		map.remove(key);
+		try {
+			for (Map.Entry<String, Slot> entry : map.entrySet()) {
+				entry.getValue().value();
+			}
+		} catch (XLException e) {
+			map.put(key, temp);
+			throw new XLException("Can not remove slot, global dependency.");
+		}
 		setChanged();
 		notifyObservers();
 	}
@@ -86,22 +88,21 @@ public class Sheet extends Observable implements Environment {
 			ps.save(map.entrySet());
 
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new XLException(e.getMessage());
 		}
 
 	}
 
-	public void load(String fileName){
+	public void load(String fileName) {
 		try {
+			resetMap();
 			XLBufferedReader br = new XLBufferedReader(fileName);
 			br.load(map, factory);
 			setChanged();
 			notifyObservers();
-			} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			throw new XLException(e.getMessage());
 		}
-		
+
 	}
 }

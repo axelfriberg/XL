@@ -1,5 +1,6 @@
 package model;
 
+
 public class SlotFactory {
 	private Environment env;
 
@@ -8,14 +9,18 @@ public class SlotFactory {
 	}
 
 	public Slot createSlot(String s) {
-		
+
 		if (s.charAt(0) == '#') {
 			return new CommentSlot(s);
 		}
 
 		else {
-			return new ExprSlot(s, env);
-
+			try {
+				ExprSlot exprSlot = new ExprSlot(s, env);
+				return exprSlot;
+			} catch (XLException e) {
+				throw e;
+			}
 		}
 
 	}

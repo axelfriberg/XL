@@ -1,5 +1,6 @@
 package model;
 
+
 public class CommentSlot implements Slot {
 
 	private String comment;
@@ -9,11 +10,12 @@ public class CommentSlot implements Slot {
 	}
 
 	public double value() {
+//		throw new XLException("Comment value request.");
 		return 0;
 	}
 
 	public String toString() {
-		return "#"+comment;
+		return "#" + comment;
 	}
 
 	public String output() {

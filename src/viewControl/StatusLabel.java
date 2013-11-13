@@ -8,16 +8,16 @@ import model.Sheet;
 
 @SuppressWarnings("serial")
 public class StatusLabel extends ColoredLabel implements Observer {
-	private Sheet sheet;
+	private CurrentModel model;
 
-	public StatusLabel(Sheet sheet) {
+	public StatusLabel(CurrentModel model) {
 		super("", Color.WHITE);
 		setForeground(Color.RED);
-		this.sheet = sheet;
-		sheet.addObserver(this);
+		this.model = model;
+		model.addObserver(this);
 	}
 
 	public void update(Observable observable, Object object) {
-		setText(sheet.getException());
+		setText(model.getExceptionMessage());
 	}
 }

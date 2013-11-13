@@ -28,8 +28,11 @@ public class SlotLabel extends ColoredLabel implements Observer, MouseListener {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		setBackground(Color.WHITE);
-		currentModel.deleteObserver(this);
+
+		if (!(currentModel.getCurrent().equals(this))) {
+			setBackground(Color.WHITE);
+			currentModel.deleteObserver(this);
+		}
 
 	}
 

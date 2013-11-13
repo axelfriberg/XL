@@ -1,6 +1,5 @@
 package model;
 
-import util.XLException;
 
 public class BlankSlot implements Slot{
 	

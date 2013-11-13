@@ -2,6 +2,7 @@ package expr;
 
 import model.Environment;
 import model.Slot;
+import model.XLException;
 
 class Variable extends Expr implements Environment{
     private String name;

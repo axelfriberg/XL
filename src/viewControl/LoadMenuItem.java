@@ -15,7 +15,11 @@ class LoadMenuItem extends OpenMenuItem {
     }
 
     protected void action(String path) throws FileNotFoundException {
+    	try{
         sheet.load(path);
+    	}catch(Exception e){
+    		statusLabel.setText(e.getMessage());
+    	}
     }
 
     protected int openDialog(JFileChooser fileChooser) {
