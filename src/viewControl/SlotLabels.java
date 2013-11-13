@@ -48,7 +48,7 @@ public class SlotLabels extends GridPanel implements MouseListener, Observer {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		
+
 	}
 
 	@Override
@@ -74,17 +74,16 @@ public class SlotLabels extends GridPanel implements MouseListener, Observer {
 	}
 
 	@Override
-	public void update(Observable o, Object arg) { 
+	public void update(Observable o, Object arg) {
 		HashMap<String, String> slotNames = sheet.getSlotMap();
-		for(Map.Entry<String, SlotLabel> entry : labelMap.entrySet()){
+		for (Map.Entry<String, SlotLabel> entry : labelMap.entrySet()) {
 			SlotLabel tempSlot = labelMap.get(entry.getKey());
 			tempSlot.setText("");
 		}
 		for (Map.Entry<String, String> entry : slotNames.entrySet()) {
 			labelMap.get(entry.getKey()).setText(entry.getValue());
 		}
-		
-		currentModel.notifyObservers();
+		currentModel.setErrorMessage("");
 	}
 
 }

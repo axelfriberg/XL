@@ -18,6 +18,6 @@ class NewMenuItem extends JMenuItem implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent event) {
-        new XL(xl, new Sheet(10, 8));
+        new XL(xl, new Sheet());
     }
 }

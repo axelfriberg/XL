@@ -16,7 +16,7 @@ import model.Sheet;
 
 @SuppressWarnings("serial")
 public class XL extends JFrame implements Printable {
-	private static final int ROWS = 10, COLUMNS = 8;
+	private static int ROWS = 10, COLUMNS = 8;
 	private XLCounter counter;
 	private XLList xlList;
 //	@SuppressWarnings("unused")
@@ -62,6 +62,6 @@ public class XL extends JFrame implements Printable {
 	}
 
 	public static void main(String[] args) {
-		new XL(new XLList(), new XLCounter(), new Sheet(ROWS, COLUMNS));
+		new XL(new XLList(), new XLCounter(), new Sheet());
 	}
 }

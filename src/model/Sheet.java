@@ -12,7 +12,7 @@ public class Sheet extends Observable implements Environment {
 	private Map<String, Slot> map;
 	private static SlotFactory factory;
 
-	public Sheet(int rows, int columns) {
+	public Sheet() {
 		map = new HashMap<String, Slot>();
 		factory = new SlotFactory(this);
 
